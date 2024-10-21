@@ -64,6 +64,8 @@ function GetQuantity()
 }
 function GetLimit()
 {
+	return DEFAULT_LIMIT;
+	
     let limit_20 = document.querySelector(".limit-20");
     let limit_100 = document.querySelector(".limit-100");
     let limit_1000 = document.querySelector(".limit-1000");
