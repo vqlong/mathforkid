@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Bé học toán</title>
+        <link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="common.css">
+        <meta charset="UTF-8">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="description" content="Sample HTML">
+        <meta name="author" content="Le Rachitique">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="6000">
+        <!-- <base target="_blank"> -->
+        <style>
+
+            #table1>div>p:hover { 
+                background-color: var(--bs-success);
+                color: var(--bs-white);
+            }
+
+            .btn-speak {
+                font-size: 20px; 
+                text-align: center;
+                width: 50px; 
+                height: 50px; 
+                border-radius: 50%;
+            }
+            .btn-speak::after {
+                content: "\1F56A";
+                display: block;
+                transform: scale(1.5);
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="container"></header>
+        <main class="container mt-5">
+
+            <h2 id="test-sorting-header" class="mt-5 text-danger">Sorting</h2>
+            <div class="d-flex flex-column align-items-center position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestSorting(event)">Create sortings</button>
+                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestSorting(event)">Check</a>
+                <div class="test-sorting sorting-less d-flex justify-content-center row-gap-1 column-gap-5 flex-wrap my-2 py-3 px-1 border border-success rounded-4 text-success">1  2  3</div>
+                <div class="test-sorting sorting-greater d-flex justify-content-center row-gap-1 column-gap-5 flex-wrap my-2 py-3 px-1 border border-success rounded-4 text-success">3  2  1</div>          
+            </div>
+
+
+
+                   
+
+        </main>
+        <footer></footer>
+        <script src="common.js"></script>
+        <script>
+            if (navigator.maxTouchPoints != 0) 
+            {
+                document.querySelector(".form-check.form-switch").style.display = 'none';
+                let btn = document.querySelector(".btn-speak");
+                btn.classList.remove("btn-speak");
+                btn.setAttribute("width", "150px");
+                btn.setAttribute("height", "150px");
+                let img = document.createElement("img");
+                img.setAttribute("width", "60%");
+                img.setAttribute("height", "60%");
+                img.src = "https://cdn.glitch.global/8b5bbd7d-f994-4e58-9d92-8dbb0e7bf8ac/speaker.png?v=1697894490419";
+                btn.appendChild(img);
+            }
+
+            CreateTestSorting(null);
+            CreateTable("+");
+
+            function CreateTestSorting(event)
+            {
+                let div_test = document.querySelector(".test-sorting.sorting-less");
+                div_test.innerHTML = "";
+                CreateTestSortingBySign(div_test);
+
+                
+            }
+            function CreateTestSortingBySign(div_test, isless = true)
+            {
+                
+                
+                for(let v of window.speechSynthesis.getVoices())
+                {
+                    let name = document.createElement("label");
+                    name.innerText = v.name;
+                    name.classList = "d-block";
+                    div_test.appendChild(name);
+                }                  
+
+
+            }
+            function CheckTestSorting(event)
+            {
+                let point = 0;
+                let div_sorting_less = document.querySelector(".test-sorting.sorting-less");
+                let forms_less = div_sorting_less.children;
+                for(let f of forms_less)
+                {
+                    if (f.nodeName == "FORM")
+                    {
+                        let array_answer = [];
+                        for(let box of f.querySelectorAll(".sorting-box")) array_answer.push(box.value);
+                        let answer = `${array_answer[0]} ${array_answer[1]} ${array_answer[2]} ${array_answer[3]} ${array_answer[4]}`;
+                        if (answer == f.dataset.ans) 
+                        {
+                            point++;
+                            f.classList.remove("border", "border-danger", "rounded-3");
+                        }
+                        else
+                        {
+                            f.classList.add("border", "border-danger", "rounded-3");
+                        } 
+                    }
+                }
+                
+                let div_sorting_greater = document.querySelector(".test-sorting.sorting-greater");
+                let forms_greater = div_sorting_greater.children;
+                for(let f of forms_greater)
+                {
+                    if (f.nodeName == "FORM")
+                    {
+                        let array_answer = [];
+                        for(let box of f.querySelectorAll(".sorting-box")) array_answer.push(box.value);
+                        let answer = `${array_answer[0]} ${array_answer[1]} ${array_answer[2]} ${array_answer[3]} ${array_answer[4]}`;
+                        if (answer == f.dataset.ans) 
+                        {
+                            point++;
+                            f.classList.remove("border", "border-danger", "rounded-3");
+                        }
+                        else
+                        {
+                            f.classList.add("border", "border-danger", "rounded-3");
+                        } 
+                    }
+                }
+
+                document.getElementById("message-box-body").innerText = point + " điểm.";
+
+                if (navigator.maxTouchPoints != 0) SpeakByBrowser("sắp xếp. " + point + " điểm");
+            }            
+            
+            function SelectTable(event)
+            {
+                document.querySelector(".btn-select-table.active").classList.remove("active");
+                event.target.classList.add("active");
+                CreateTable(event.target.innerText);
+            }
+            function CreateTable(name)
+            {
+                let header = document.getElementById("table1-header");
+                if (name == "+") header.innerText = "Summation table";
+                else if (name == "x") header.innerText = "Multiplication table";
+                let table = document.getElementById("table1");
+                table.innerHTML = "";
+                for(let i = 1; i < 10; i++)
+                {
+                    let div = document.createElement("div"); 
+                    for(let j = 1; j < 11; j++)
+                    {
+                        let p = document.createElement("p");
+                        let text = `${i} + ${j} = ${j+i}`;
+                        if (name == "x") text = `${i} x ${j} = ${j*i}`;
+                        p.innerText = text;
+                        p.style.cursor = "pointer";
+                        p.className = "my-2 px-3 py-1";
+                        p.addEventListener("click", e =>
+                        {
+                            if (navigator.maxTouchPoints != 0)
+                            {
+                                SpeakByBrowser(text);
+                                return;
+                            }
+                            let ckb = document.getElementById("ckb-vn");
+                            if (ckb.checked == true) SpeakMultiplicationByVn(text);
+                            else SpeakByBrowser(text);
+
+                        });
+                        div.appendChild(p);
+                    }
+
+                    div.className = "d-inline-block m-2 border border-success rounded-4 text-success";
+                    table.appendChild(div);
+                }
+
+            }
+    
+            let counter = 0;
+            function Up(event)
+            {
+                let text = document.getElementById("counter-display").innerText;
+                let num = parseInt(text);
+                if (num != NaN) counter = num;
+                counter++;
+                document.getElementById("counter-display").innerText = counter;
+                SpeakCounter(event);
+            }
+            function Down(event)
+            {
+                let text = document.getElementById("counter-display").innerText;
+                let num = parseInt(text);
+                if (num != NaN) counter = num;
+                counter--;
+                document.getElementById("counter-display").innerText = counter;
+                SpeakCounter(event);
+            }
+            window.addEventListener("keydown", e =>
+            {
+                if (["ArrowUp", "ArrowDown"].indexOf(e.code) > -1) e.preventDefault();
+                if (event.key == "ArrowUp")
+                {
+                    event.preventDefault();
+                    Up(event);
+                } 
+                
+                if (event.key == "ArrowDown") 
+                {
+                    event.preventDefault();
+                    Down(event);
+                }
+            });
+
+            function SpeakCounter(event)
+            {
+                let text = document.getElementById("counter-display").innerText;
+                if (navigator.maxTouchPoints != 0)
+                {
+                    SpeakByBrowser(text);
+                    return;
+                }
+                let ckb = document.getElementById("ckb-vn");
+                if (ckb.checked == true) SpeakCounterByVn(text);
+                else SpeakByBrowser(text);
+            }
+            const interval = 500;
+            let timeout = 0;
+            function SpeakCounterByVn(text)
+            {
+                timeout = 0;
+                ReadVnNumber(text);
+            }
+            function SpeakMultiplicationByVn(text)
+            {
+                timeout = 0;
+                text = text.replace(/ /g, "_");
+                let index = text.search(/=/);
+                let text1 = text.slice(0, index + 1).replace("10", "c");
+                for(let c of text1) ReadVnWordTimeout(c);
+                let text2 = text.substr(index + 2);
+                ReadVnNumber(text2);
+            }
+            function ReadVnNumber(text)
+            {           
+                // -123
+                if (text.startsWith("-"))
+                {
+                    // bỏ dấu '-' khỏi text
+                    text = text.substr(1);
+                    // đọc dấu '-' và tăng timeout cho ký tự sau
+                    ReadVnWordTimeout("-");
+                }
+                if (text.length == 2)
+                {
+                    // 10
+                    if (text == "10")
+                    {
+                        ReadVnWordTimeout("c");
+                        return;
+                    }
+
+                    // 11 - 19
+                    if (text.startsWith("1"))
+                    {
+                        text = text.substr(1);
+                        ReadVnWordTimeout("c");;
+                    }
+                    // 20, 30, 40, ..., 90 đọc là 'mươi'
+                    else if (text.endsWith("0"))
+                    {
+                        text = text.replace("0", "m");
+                    }
+                    // 21, 31, 41, ..., 91 đọc là 'mốt'
+                    else if (text.endsWith("1"))
+                    {
+                        text = text.replace("1", "t");
+                    }
+                    else if (text.endsWith("4"))
+                    {
+                        text = text.replace("4", "u");
+                    }
+                }
+
+                if (text.length == 3)
+                {
+                    // 100, 200, ..., 900
+                    if (text.endsWith("00"))
+                    {
+                        text = text.replace("00", "r_");
+                    }
+                    // 110, 210, ..., 910
+                    else if (text.endsWith("10"))
+                    {
+                        text = text.replace("10", "ric");
+                    }
+                    // 10x, 20x, ..., 90x
+                    else if (text.substr(1, 1) == "0")
+                    {
+                        // 102 => 1ri2
+                        text = text.replace("0", "ri");
+                    }
+                    else
+                    {
+                        let firstChar = text.substr(0, 1);
+                        // 123 => 1r23
+                        text = firstChar + "r" + text.substr(1);
+
+                        let secondChar = text.substr(2, 1);
+                        if (secondChar == "1")
+                        {
+                            // 1r13 => 1rc3
+                            text = text.substr(0, 2) + "c" + text.substr(3);
+                        }
+                        else if (text.endsWith("0"))
+                        {
+                            // 1r20 => 1r2m 
+                            text = text.replace("0", "m");
+                        }
+                        else if (text.endsWith("1"))
+                        {
+                            // 1r21 => 1r2t
+                            text = text.substr(0, 3) + "t";
+                        }
+                        else if (text.endsWith("4"))
+                        {
+                            // 1r24 => 1r2u
+                            text = text.substr(0, 3) + "u";
+                        }
+                    }
+                }
+
+                              
+                for(let c of text) 
+                {
+                    ReadVnWordTimeout(c);
+                }
+            }
+            function ReadVnWord(word)
+            {
+                var audio = new Audio('Sound/' + word + '.mp3');
+                audio.play();
+            }
+            function ReadVnWordTimeout(word)
+            {
+                if (word == "_") return;
+                setTimeout(() => ReadVnWord(word), timeout);
+                timeout += interval;
+            }
+
+            function SliderInput(event)
+            {
+                SliderSelectLimit(event.target);
+            }
+            function SliderSelectLimit(slider)
+            {               
+                if (slider.classList.contains("select-sorting-limit"))
+                {
+                    document.querySelector(".test-sorting-limit").innerText = slider.value;
+                }
+                else if (slider.classList.contains("select-sorting-quantity"))
+                {
+                    document.querySelector(".test-sorting-quantity").innerText = slider.value;
+                }
+
+                let width = slider.value*100/slider.getAttribute("max");
+                if (5 < width && width < 20) width++;
+                else if (width <= 5) width += 1.2;
+                slider.previousElementSibling.style.width = width + "%";
+            }
+        </script>    
+    </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Bé học toán</title>
+        <link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="common.css">
+        <meta charset="UTF-8">
+        <meta name="keywords" content="Le Rachitique, CSS, JavaScript">
+        <meta name="description" content="Sample HTML">
+        <meta name="author" content="Le Rachitique">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="6000">
+        <!-- <base target="_blank"> -->
+        <style>
+
+
+        </style>
+    </head>
+    <body>
+        <header class="container"></header>
+        <main class="container">         
+            <h2 id="test-division-header" class="mt-5 text-danger">Division</h2>
+            <div class="d-flex flex-column align-items-center position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestDivision(event)">Create divisions</button>
+                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestDivision(event)">Check</a>          
+                <div class="test-division d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 - 1 = 0</div>
+            </div>     
+
+            <h2 id="test-division-2-header" class="mt-5 text-danger">Find the missing dividend</h2>
+            <div class="d-flex flex-column align-items-center position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestDivision2(event)">Create divisions</button>
+                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestDivision2(event)">Check</a>          
+                <div class="test-division-2 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 - 1 = 0</div>
+            </div>
+
+            <h2 id="test-division-3-header" class="mt-5 text-danger">Find the missing divisor</h2>
+            <div class="d-flex flex-column align-items-center position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestDivision3(event)">Create divisions</button>
+                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestDivision3(event)">Check</a>          
+                <div class="test-division-3 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 - 1 = 0</div>
+            </div>  
+
+                   
+            <!-- <div id="nav-placeholder"></div>  -->
+        </main>
+        
+        <footer class="container"></footer>
+        <!-- <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script>
+            $(function(){
+              $("#nav-placeholder").load("nav.html");
+            });
+        </script>     -->
+        <script src="common.js"></script>
+        <script defer> 
+            
+            CreateTestDivision(null);
+            CreateTestDivision2(null);
+            CreateTestDivision3(null);
+
+            function CreateTestDivision(event)
+            {
+                let div_test = document.querySelector(".test-division");
+                div_test.innerHTML = "";
+                let limit_a = GetLimit();
+                let limit_b = 10;
+                let quantity = GetQuantity();
+                for(let i = 0; i < quantity; i++)
+                {
+                    
+                    let a = Math.floor(Math.random() * (limit_a + 1));
+                    let b = Math.floor(Math.random() * (limit_b + 1));
+                    if (b == 0) b = 1;
+                    let c = a * b;
+
+                    let question = document.createElement("label");
+                    question.innerText = `${c} : ${b} = `;
+
+                    let answer = document.createElement("input");
+                    answer.setAttribute("type", "number");
+                    answer.setAttribute("min", "0");
+                    answer.setAttribute("max", `${limit_a}`);
+                    answer.setAttribute("placeholder", "?");
+                    answer.setAttribute("required", "");
+                    answer.style.width = "40px";
+                    answer.classList = "form-control d-inline-block ms-1 p-1 text-success text-center answer-box";
+
+                    let form_division = document.createElement("form");
+                    form_division.dataset.ans = `${a}`;
+                    form_division.style.width = "140px";
+                    form_division.classList = "d-flex justify-content-end align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-info1";
+                    form_division.appendChild(question);
+                    form_division.appendChild(answer);
+
+                    div_test.appendChild(form_division);
+                }
+            }          
+            function CreateTestDivision2(event)
+            {
+                let div_test = document.querySelector(".test-division-2");
+                div_test.innerHTML = "";
+                let limit_a = GetLimit();
+                let limit_b = 10;
+                let quantity = GetQuantity();
+                for(let i = 0; i < quantity; i++)
+                {
+                    let a = Math.floor(Math.random() * (limit_a + 1));
+                    let b = Math.floor(Math.random() * (limit_b + 1));
+                    if (b == 0) b = 1;
+                    let c = a * b;
+                    
+                    let question = document.createElement("label");
+                    question.innerText = `: ${b} = ${a}`;
+
+                    let answer = document.createElement("input");
+                    answer.setAttribute("type", "number");
+                    answer.setAttribute("min", "0");
+                    answer.setAttribute("max", `${limit_a*limit_b}`);
+                    answer.setAttribute("placeholder", "?");
+                    answer.setAttribute("required", "");
+                    answer.style.width = "45px";
+                    answer.classList = "form-control d-inline-block me-1 p-1 text-success text-center answer-box";
+
+                    let form_division = document.createElement("form");
+                    form_division.dataset.ans = `${c}`;
+                    form_division.style.width = "135px";
+                    form_division.classList = "d-flex justify-content-start align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-info1";
+                    form_division.appendChild(answer);
+                    form_division.appendChild(question);
+
+                    div_test.appendChild(form_division);
+                }
+            }           
+            function CreateTestDivision3(event)
+            {
+                let div_test = document.querySelector(".test-division-3");
+                div_test.innerHTML = "";
+                let limit_a = GetLimit();
+                let limit_b = 10;
+                let quantity = GetQuantity();
+                for(let i = 0; i < quantity; i++)
+                {
+                    let a = Math.floor(Math.random() * (limit_a + 1));
+                    let b = Math.floor(Math.random() * (limit_b + 1));
+                    if (a == 0) a = 1;
+                    if (b == 0) b = 1;
+                    let c = a * b;
+
+                    let dividend = document.createElement("label");
+                    dividend.innerText = `${c} :`;
+                    let quotient = document.createElement('label');
+                    quotient.innerText = `= ${b}`;
+
+                    let answer = document.createElement("input");
+                    answer.setAttribute("type", "number");
+                    answer.setAttribute("min", "0");
+                    answer.setAttribute("max", `${limit_a}`);
+                    answer.setAttribute("placeholder", "?");
+                    answer.setAttribute("required", "");
+                    answer.style.width = "40px";
+                    answer.classList = "form-control d-inline-block mx-1 p-1 text-success text-center answer-box";
+
+                    let form_division = document.createElement("form");
+                    form_division.dataset.ans = `${a}`;
+                    form_division.style.width = "143px";
+                    form_division.classList = "d-flex justify-content-center align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-info1";
+                    form_division.appendChild(dividend);
+                    form_division.appendChild(answer);
+                    form_division.appendChild(quotient);
+
+                    div_test.appendChild(form_division);
+                }
+            }          
+
+            function CheckTest(div_test, comment)
+            {              
+                let point = 0;
+                let forms = div_test.children;
+                for(let f of forms)
+                {
+                    if (f.nodeName == "FORM")
+                    {
+                        let answer = f.querySelector('.answer-box');
+                        if (answer.value == f.dataset.ans) 
+                        {
+                            point++;
+                            f.classList.remove("border", "border-danger", "rounded-3");
+                        }
+                        else
+                        {
+                            f.classList.add("border", "border-danger", "rounded-3");
+                        } 
+                    }
+                }
+                
+                document.getElementById("message-box-body").innerText = point + " điểm.";
+
+                if (navigator.maxTouchPoints != 0) SpeakByBrowser(comment + " " + point + " điểm");
+
+                return point;
+            }
+            function CheckTestDivision(event)
+            {
+                let div_test = document.querySelector(".test-division");
+                let point = CheckTest(div_test, "phép chia. ");
+                let quantity = GetQuantity();
+                let limit = GetLimit();
+                if (point < quantity && limit != 1000) CreateTestDivision(null);
+            }
+            function CheckTestDivision2(event)
+            {
+                let div_test = document.querySelector(".test-division-2");
+                let point = CheckTest(div_test, "tìm số bị chia. ");
+                let quantity = GetQuantity();
+                let limit = GetLimit();
+                if (point < quantity && limit != 1000) CreateTestDivision2(null);
+            }
+            function CheckTestDivision3(event)
+            {
+                let div_test = document.querySelector(".test-division-3");
+                let point = CheckTest(div_test, "tìm số chia. ");
+                let quantity = GetQuantity();
+                let limit = GetLimit();
+                if (point < quantity && limit != 1000) CreateTestDivision3(null);
+            }
+
+        </script>   
+    </body>
+</html>
