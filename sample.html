@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <style>
+        .container {
+            background-color: aquamarine;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stick {
+            background-color: crimson;
+            position: sticky;
+            top: 50px;
+            left: 50px;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 200px;"></div>
+    <div class="container">
+        <div class="stick">Stick me</div>
+    </div>
+    <div style="height: 2000px;"></div>
+</body>
+</html>

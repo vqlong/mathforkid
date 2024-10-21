@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Bé học toán</title>
+        <link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="common.css">
+        <meta charset="UTF-8">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="description" content="Sample HTML">
+        <meta name="author" content="Le Rachitique">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="6000">
+        <!-- <base target="_blank"> -->
+        <style>
+
+
+        </style>
+    </head>
+    <body>
+        <header class="container"></header>
+        <main class="container mt-5">
+            <h2 id="test-multiplication-header" class="mt-5 text-danger">Multiplication</h2>
+            <div class="d-flex flex-column align-items-center position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestMultiplication(event)">Create multiplications</button>
+                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestMultiplication(event)">Check</a>          
+                <div class="test-multiplication d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 x 1 = 2</div>
+            </div>
+            
+            <h2 id="test-multiplication-2-header" class="mt-5 text-danger">Find the missing factor</h2>
+            <div class="d-flex flex-column align-items-center position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestMultiplication2(event)">Create multiplications</button>
+                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestMultiplication2(event)">Check</a>          
+                <div class="test-multiplication-2 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 x 1 = 2</div>
+            </div>
+            
+            
+
+        </main>
+        <footer></footer>
+        <script src="common.js"></script>
+        <script>
+
+            CreateTestMultiplication(null);            
+            CreateTestMultiplication2(null);
+
+            function CreateTestMultiplication(event)
+            {
+                let div_test = document.querySelector(".test-multiplication");
+                div_test.innerHTML = "";
+                let limit_a = GetLimit();
+                let limit_b = 10;
+
+                let quantity = GetQuantity();
+                for(let i = 0; i < quantity; i++)
+                {
+                    
+                    let a = Math.floor(Math.random() * (limit_a + 1));
+                    let b = Math.floor(Math.random() * (limit_b + 1));                
+
+                    let question = document.createElement("label");
+                    question.innerText = `${a} x ${b} = `;
+
+                    let answer = document.createElement("input");
+                    answer.setAttribute("type", "number");
+                    answer.setAttribute("min", "0");
+                    answer.setAttribute("max", `${limit_a*limit_b}`);
+                    answer.setAttribute("placeholder", "?");
+                    answer.setAttribute("required", "");
+                    answer.style.width = "45px";
+                    answer.classList = "form-control d-inline-block ms-1 p-1 text-success text-center answer-box bg-warningz";
+
+                    let form_multiplication = document.createElement("form");
+                    form_multiplication.dataset.ans = `${a * b}`;
+                    form_multiplication.style.width = "135px";
+                    form_multiplication.classList = "d-flex justify-content-end align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-infoz";
+                    form_multiplication.appendChild(question);
+                    form_multiplication.appendChild(answer);
+
+                    div_test.appendChild(form_multiplication);
+                }
+            }    
+            function CreateTestMultiplication2(event)
+            {
+                let div_test = document.querySelector(".test-multiplication-2");
+                div_test.innerHTML = "";
+                let limit_a = GetLimit();
+                let limit_b = 10;
+
+                let quantity = GetQuantity();
+                for(let i = 0; i < quantity; i++)
+                {
+                    
+                    let a = Math.floor(Math.random() * (limit_a + 1));
+                    let b = Math.floor(Math.random() * (limit_b + 1));
+                    if (b == 0) b = 1;
+                    let c = a * b;
+                   
+                    let label = document.createElement("label");
+                    label.innerText = `x ${b} = ${c}`;
+
+                    let answer = document.createElement("input");
+                    answer.setAttribute("type", "number");
+                    answer.setAttribute("min", "0");
+                    answer.setAttribute("max", `${limit_a}`);
+                    answer.setAttribute("placeholder", "?");
+                    answer.setAttribute("required", "");
+                    answer.style.width = "36px";
+                    answer.classList = "form-control d-inline-block me-1 p-1 text-success text-center answer-box";
+
+                    let form_multiplication = document.createElement("form");
+                    form_multiplication.dataset.ans = `${a}`;
+                    form_multiplication.style.width = "135px";
+                    form_multiplication.classList = "d-flex justify-content-start align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-infoz";
+                    form_multiplication.appendChild(answer);
+                    form_multiplication.appendChild(label);
+
+                    div_test.appendChild(form_multiplication);
+                }
+            }        
+                        
+            function CheckTestMultiplication(event)
+            {
+                let div_test = document.querySelector(".test-multiplication");
+                CheckTest(div_test, "phép nhân. ");
+            }
+            function CheckTestMultiplication2(event)
+            {
+                let div_test = document.querySelector(".test-multiplication-2");
+                let point = CheckTest(div_test, "tìm thừa số. ");
+                let quantity = GetQuantity();
+                let limit = GetLimit();
+                if (point < quantity && limit != 1000) CreateTestMultiplication2(null);
+            }
+            function CheckTest(div_test, comment)
+            {              
+                let point = 0;
+                let forms = div_test.children;
+                for(let f of forms)
+                {
+                    if (f.nodeName == "FORM")
+                    {
+                        let answer = f.querySelector('.answer-box');
+                        if (answer.value == f.dataset.ans) 
+                        {
+                            point++;
+                            f.classList.remove("border", "border-danger", "rounded-3");
+                        }
+                        else
+                        {
+                            f.classList.add("border", "border-danger", "rounded-3");
+                        } 
+                    }
+                }
+                
+                document.getElementById("message-box-body").innerText = point + " điểm.";
+
+                if (navigator.maxTouchPoints != 0) SpeakByBrowser(comment + " " + point + " điểm");
+
+                return point;
+            }           
+
+        </script>    
+    </body>
+</html>

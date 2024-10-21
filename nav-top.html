@@ -1,0 +1,54 @@
+<nav class="container navbar navbar-expand-md bg-gray-200 navbar-dark mt-3 rounded-3 sticky-top z-index-2">
+    <div class="container-fluid">
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navtop-collapse-content">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-nav" id="navtop-collapse-content">
+
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle text-success" href="#" data-bs-toggle="dropdown">Số lượng</a>
+                <div class="dropdown-menu text-success" style="width: 20rem;">
+                    <form class="p-3 position-relative">
+                        <div class="text-center">10</div>
+                        <div class="slider-container w-100">
+                            <div ></div>
+                            <div class="slider-filled-track"></div>
+                            <input type="range" class="form-range slider select-quantity" min="0" max="100" value="10" step="1" oninput="SliderQuantityInput(this)">    
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="dropdown mx-3">
+                <a class="nav-link dropdown-toggle text-success" href="#" data-bs-toggle="dropdown">Giới hạn</a>
+                <div class="dropdown-menu text-success">
+                    <form class="p-3">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input limit-20" name="f-radio-demo">20
+                            </label>                 
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input limit-100" name="f-radio-demo">100
+                            </label>               
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input limit-1000" name="f-radio-demo" checked>1000
+                            </label>               
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="form-check form-switch mx-3">
+                <input type="checkbox" class="form-check-input cursor-pointer" id="ckb-carry" checked>
+                <label class="form-check-label cursor-pointer" for="ckb-carry">Phép tính có nhớ</label>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- <div style="height: 2000px; background-color: aquamarine;">
+
+</div> -->
