@@ -38,7 +38,7 @@ function SpeakByBrowser(text)
     let utterThis = new SpeechSynthesisUtterance(text);
     for(let v of window.speechSynthesis.getVoices())
     {
-        if (v.name == "Microsoft Zira - English (United States)") utterThis.voice = v;
+        if (v.name == "Microsoft HoaiMy Online (Natural) - Vietnamese (Vietnam)") utterThis.voice = v;
     }
     window.speechSynthesis.speak(utterThis);
 }
