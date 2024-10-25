@@ -22,23 +22,23 @@
         <header class="container"></header>
         <main class="container">         
             <h2 id="test-subtraction-header" class="mt-5 text-danger">Subtraction</h2>
-            <div class="d-flex flex-column align-items-center position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestSubtraction(event)">Create subtractions</button>
-                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestSubtraction(event)">Check</a>          
+            <div class="position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestSubtraction(event)">Create subtractions</button>
+                <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestSubtraction(event)">Check</a>          
                 <div class="test-subtraction d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 - 1 = 0</div>
             </div>     
 
             <h2 id="test-subtraction-2-header" class="mt-5 text-danger">Find the missing minuend</h2>
-            <div class="d-flex flex-column align-items-center position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestSubtraction2(event)">Create subtractions</button>
-                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestSubtraction2(event)">Check</a>          
+            <div class="position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestSubtraction2(event)">Create subtractions</button>
+                <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestSubtraction2(event)">Check</a>          
                 <div class="test-subtraction-2 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 - 1 = 0</div>
             </div>
 
             <h2 id="test-subtraction-3-header" class="mt-5 text-danger">Find the missing subtrahend</h2>
-            <div class="d-flex flex-column align-items-center position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestSubtraction3(event)">Create subtractions</button>
-                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestSubtraction3(event)">Check</a>          
+            <div class="position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestSubtraction3(event)">Create subtractions</button>
+                <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestSubtraction3(event)">Check</a>          
                 <div class="test-subtraction-3 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 - 1 = 0</div>
             </div>  
 
@@ -205,7 +205,7 @@
 
                     let form_subtraction = document.createElement("form");
                     form_subtraction.dataset.ans = `${b}`;
-                    form_subtraction.style.width = "143px";
+                    form_subtraction.style.width = "141px";
                     form_subtraction.classList = "d-flex justify-content-center align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-info1";
                     form_subtraction.appendChild(minuend);
                     form_subtraction.appendChild(answer);
