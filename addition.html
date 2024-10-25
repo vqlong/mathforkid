@@ -22,33 +22,23 @@
         <header class="container"></header>
         <main class="container mt-5">
             <h2 id="test-addition-header" class="mt-5 text-danger">Addition</h2>
-            <div class="d-flex flex-column align-items-center position-relative">
-                <!-- <div class="slider-container w-100">
-                    <div ></div>
-                    <div class="slider-filled-track"></div>
-                    <input type="range" class="form-range slider select-addition-quantity" min="0" max="100" value="10" step="1" oninput="SliderInput(event)">    
-                </div>
-                <div class="slider-container w-100">
-                    <div ></div>
-                    <div class="slider-filled-track"></div>
-                    <input type="range" class="form-range slider select-addition-limit" min="0" max="100" value="100" step="10" oninput="SliderInput(event)">    
-                </div> -->
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestAddition(event)">Create additions</button>
-                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition(event)">Check</a>          
+            <div class="position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestAddition(event)">Create additions</button>
+                <a class="btn btn-success rounded-3 sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition(event)">Check</a>          
                 <div class="test-addition d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 + 1 = 2</div>
             </div>
             
             <h2 id="test-addition-3-terms-header" class="mt-5 text-danger">Addition with 3 terms</h2>
-            <div class="d-flex flex-column align-items-center position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestAddition3Terms(event)">Create additions</button>
-                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition3Terms(event)">Check</a>
+            <div class="position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestAddition3Terms(event)">Create additions</button>
+                <a class="btn btn-success rounded-3 sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition3Terms(event)">Check</a>
                 <div class="test-addition-3 d-flex justify-content-center flex-wrap my-2 p-3 border border-success rounded-4 text-success">1 + 1 = 2</div>
             </div> 
             
             <h2 id="test-addition-2-header" class="mt-5 text-danger">Find the missing addend</h2>
-            <div class="d-flex flex-column align-items-center position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 align-self-end" onclick="CreateTestAddition2(event)">Create additions</button>
-                <a class="btn btn-success rounded-3 mt-1 align-self-start sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition2(event)">Check</a>          
+            <div class="position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestAddition2(event)">Create additions</button>
+                <a class="btn btn-success rounded-3 sticky-top" style="top: 8px;" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition2(event)">Check</a>          
                 <div class="test-addition-2 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 + 1 = 2</div>
             </div>
             
@@ -99,7 +89,7 @@
                     let form_addition = document.createElement("form");
                     form_addition.dataset.ans = `${a + b}`;
                     form_addition.style.width = "145px";
-                    form_addition.classList = "d-flex justify-content-end align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-infoz";
+                    form_addition.classList = "d-flex justify-content-end align-items-center d-inline-block mx-1 my-3 p-1 was-validatedz bg-infoz";
                     form_addition.appendChild(question);
                     form_addition.appendChild(answer);
 
@@ -204,7 +194,7 @@
                     let form_addition = document.createElement("form");
                     form_addition.dataset.ans = `${a}`;
                     form_addition.style.width = "146px";
-                    form_addition.classList = "d-flex justify-content-start align-items-center d-inline-block mx-2 my-3 p-1 was-validatedz bg-infoz";
+                    form_addition.classList = "d-flex justify-content-start align-items-center d-inline-block mx-1 my-3 p-1 was-validatedz bg-infoz";
                     form_addition.appendChild(answer);
                     form_addition.appendChild(addend);
 
