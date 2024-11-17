@@ -141,9 +141,9 @@ if (CheckCookie("passcode") == false)
 }
 
 
-Array.from(document.getElementsByClassName("passcode-required")).forEach(e =>
+Array.from(document.getElementsByClassName("passcode-required")).forEach(element =>
     {
-        e.addEventListener("show.bs.dropdown", e => 
+        element.addEventListener("show.bs.dropdown", e => 
         {
             let passcode = prompt("Enter your passcode:");
             if (passcode == GetCookie("passcode")) return;
