@@ -292,14 +292,15 @@
             function SpeakCounter(event)
             {
                 let text = document.getElementById("counter-display").innerText;
-                if (navigator.maxTouchPoints != 0)
-                {
-                    SpeakByBrowser(text);
-                    return;
-                }
-                let ckb = document.getElementById("ckb-vn");
-                if (ckb.checked == true) SpeakCounterByVn(text);
-                else SpeakByBrowser(text);
+                // if (navigator.maxTouchPoints != 0)
+                // {
+                //     SpeakByBrowser(text);
+                //     return;
+                // }
+                // let ckb = document.getElementById("ckb-vn");
+                // if (ckb.checked == true) SpeakCounterByVn(text);
+                // else SpeakByBrowser(text);
+                SpeakByBrowser(text);
             }
             const interval = 500;
             let timeout = 0;

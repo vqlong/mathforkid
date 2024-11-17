@@ -36,6 +36,12 @@ if (navigator.maxTouchPoints != 0)
 function SpeakByBrowser(text)
 {           
     let utterThis = new SpeechSynthesisUtterance(text);
+    if (navigator.maxTouchPoints != 0)
+    {
+        window.speechSynthesis.speak(utterThis);
+        return;
+    }
+
     for(let v of window.speechSynthesis.getVoices())
     {
         if (v.name == "Microsoft HoaiMy Online (Natural) - Vietnamese (Vietnam)") utterThis.voice = v;
@@ -64,7 +70,7 @@ function GetQuantity()
 }
 function GetLimit()
 {
-	return DEFAULT_LIMIT;
+	// return DEFAULT_LIMIT;
 	
     let limit_20 = document.querySelector(".limit-20");
     let limit_100 = document.querySelector(".limit-100");
@@ -84,7 +90,9 @@ function GetLimit()
     }
 }
 
-
+let handleCookies = document.createElement("script");
+handleCookies.setAttribute("src", "handle-cookies.js");
+document.body.appendChild(handleCookies);
 
 
 
