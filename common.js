@@ -83,7 +83,8 @@ function GetLimit()
         else if (limit_1000.checked == true) return 1000;
     }
 }
-// alert("common");
+
+
 
 
 
