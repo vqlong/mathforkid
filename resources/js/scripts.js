@@ -4,6 +4,7 @@
 // else path = "./";
 
 let path = "/resources/html/";
+if (window.location.pathname.indexOf("mathforkid") > 0) path = "/mathforkid/resources/html/";
 
 fetch(path + 'message-box.html')
         .then(response => response.text())
