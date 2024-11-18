@@ -1,37 +1,48 @@
 
+// let path = window.location.pathname;
+// if (path == "/" || path == "/index.html") path = "./resources/html/";
+// else path = "./";
 
-fetch('message-box.html')
+let path = "/resources/html/";
+
+fetch(path + 'message-box.html')
         .then(response => response.text())
         .then(text => document.querySelector('main').innerHTML += text);
 
-fetch('header.html')
+fetch(path + 'input-box.html')
+        .then(response => response.text())
+        .then(text => document.querySelector('main').innerHTML += text);
+
+fetch(path + 'header.html')
     .then(response => response.text())
     .then(text => document.querySelector('header').innerHTML = text);
 
-fetch('footer.html')
+fetch(path + 'footer.html')
     .then(response => response.text())
     .then(text => document.querySelector('footer').innerHTML = text);
 
-fetch('nav-top.html')
+fetch(path + 'nav-top.html')
     .then(response => response.text())
     .then(text => document.querySelector('main').innerHTML = text + document.querySelector('main').innerHTML);
 
-fetch('nav-bot.html')
+fetch(path + 'nav-bot.html')
     .then(response => response.text())
     .then(text => document.querySelector('main').innerHTML += text);
 
-fetch('btn-top-bot.html')
+fetch(path + 'btn-top-bot.html')
     .then(response => response.text())
     .then(text => document.querySelector('main').innerHTML += text);
 
-if (navigator.maxTouchPoints != 0)
-{
-    let sliders = document.getElementsByClassName("slider-container");
-    for(let s of sliders)
-    {
-        //s.style.pointerEvents = "none";
-    }
-}
+
+
+// if (navigator.maxTouchPoints != 0)
+// {
+//     let sliders = document.getElementsByClassName("slider-container");
+//     for(let s of sliders)
+//     {
+//         s.style.pointerEvents = "none";
+//     }
+// }
 
 function SpeakByBrowser(text)
 {           
@@ -91,7 +102,7 @@ function GetLimit()
 }
 
 let handleCookies = document.createElement("script");
-handleCookies.setAttribute("src", "handle-cookies.js");
+handleCookies.setAttribute("src", "./resources/js/handle-cookies.js");
 document.body.appendChild(handleCookies);
 
 // yêu cầu passcode khi thay đổi cài đặt phép tính
@@ -134,23 +145,83 @@ function CheckCookie(name)
     }
 }
 
-if (CheckCookie("passcode") == false)
+function SetPasscode()
 {
-    let passcode = prompt("Enter a new passcode:", "123456");
-    if(passcode != "" && passcode != null) SetCookie("passcode", passcode, 7);
+    if (CheckCookie("passcode") == false)
+    {
+        document.getElementById("input-prompt").innerHTML = "Enter a new passcode:";
+        let inputBox = document.getElementById("input-box");
+        inputBox.style.display = "flex";
+
+        let btnClose = document.getElementById("btn-ok-input");
+        btnClose.onclick = e =>
+        {
+            let passcode = document.getElementById("input-data").value;
+            if(passcode != "" && passcode != null)
+            {
+                SetCookie("passcode", passcode, 7);
+                inputBox.style.display = "none";
+                btnClose.onclick = null;
+            }
+            else
+            {
+                e.preventDefault();
+            }
+            
+        };
+        
+    }
 }
 
+setTimeout(SetPasscode, 5000);
 
-Array.from(document.getElementsByClassName("passcode-required")).forEach(element =>
+function SetCheckPasscode()
+{
+    Array.from(document.getElementsByClassName("passcode-required")).forEach(element =>
     {
-        element.addEventListener("show.bs.dropdown", e => 
+        element.addEventListener("show.bs.dropdown", eventDropdown => 
         {
+            // document.getElementById("input-prompt").innerHTML = "Enter your passcode:";
+            // let inputBox = document.getElementById("input-box");
+            // inputBox.style.display = "flex";
+
+            // let btnClose = document.getElementById("btn-ok-input");
+            // btnClose.onclick = e =>
+            // {
+            //     let passcode = document.getElementById("input-data").value;
+            //     if (passcode == GetCookie("passcode"))
+            //     {
+                    
+            //     }
+            //     else
+            //     {
+            //         eventDropdown.stopPropagation();
+            //         eventDropdown.preventDefault();
+            //     }
+
+            //     inputBox.style.display = "none";
+            //     btnClose.onclick = null;
+
+            // };
+
             let passcode = prompt("Enter your passcode:");
-            if (passcode == GetCookie("passcode")) return;
-            e.stopPropagation();
-            e.preventDefault();
+            if (passcode == GetCookie("passcode"))
+            {
+                return;
+            }
+            else
+            {
+                eventDropdown.stopPropagation();
+                eventDropdown.preventDefault();
+            }
+            
         });
     });
+}
+
+setTimeout(SetCheckPasscode, 5000);
+
+
 
 
 
