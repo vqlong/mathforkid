@@ -165,6 +165,7 @@ input::-webkit-inner-spin-button {
 .input-header{
     margin: 0;
     padding: 1rem;
+    position: relative;
     background-color: var(--bs-gray-200);
     border-bottom: 1px solid var(--bs-gray-400);
     border-top-left-radius: 10px;
@@ -172,14 +173,24 @@ input::-webkit-inner-spin-button {
 }
 
 .input-title{
-    width: fit-content;
     color: var(--bs-danger);
-    margin: 5px auto;
+    margin: 0;
 }
 
 .input-header .btn-close-input{
     float: right;
-    margin: 10px;
+    color: var(--bs-gray-600);
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    border: none;
+    padding: 0;
+    font-size: 2.5rem;
+    background: transparent;
+}
+
+.input-header .btn-close-input:hover{
+    color: var(--bs-danger);
 }
 
 .input-form{
@@ -213,7 +224,7 @@ input::-webkit-inner-spin-button {
 }
 
 .input-footer .btn-close-input{
-    margin: 10px;
+    margin: 15px;
 }
 
 @keyframes zoom-in {

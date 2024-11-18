@@ -174,7 +174,7 @@ function SetPasscode()
     }
 }
 
-setTimeout(SetPasscode, 5000);
+setTimeout(SetPasscode, 3000);
 
 function SetCheckPasscode()
 {
@@ -220,7 +220,7 @@ function SetCheckPasscode()
     });
 }
 
-setTimeout(SetCheckPasscode, 5000);
+setTimeout(SetCheckPasscode, 3000);
 
 
 
