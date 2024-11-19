@@ -153,16 +153,19 @@ function SetPasscode()
         document.getElementById("input-prompt").innerHTML = "Enter a new passcode:";
         let inputBox = document.getElementById("input-box");
         inputBox.style.display = "flex";
+        let stopWheel = e => e.preventDefault();
+        window.addEventListener("wheel", stopWheel, { passive:false });
 
-        let btnClose = document.getElementById("btn-ok-input");
-        btnClose.onclick = e =>
+        let btnOk = document.getElementById("btn-ok-input");
+        btnOk.onclick = e =>
         {
             let passcode = document.getElementById("input-data").value;
             if(passcode != "" && passcode != null)
             {
                 SetCookie("passcode", passcode, 7);
                 inputBox.style.display = "none";
-                btnClose.onclick = null;
+                btnOk.onclick = null;
+                window.removeEventListener("wheel", stopWheel);
             }
             else
             {
@@ -170,6 +173,14 @@ function SetPasscode()
             }
             
         };
+
+        let btnClose = document.getElementById("btn-close-input");
+        btnClose.onclick = e =>
+        {
+            inputBox.style.display = "none";
+            window.removeEventListener("wheel", stopWheel);
+            btnClose.onclick = null;
+        }
         
     }
 }
@@ -186,8 +197,8 @@ function SetCheckPasscode()
             // let inputBox = document.getElementById("input-box");
             // inputBox.style.display = "flex";
 
-            // let btnClose = document.getElementById("btn-ok-input");
-            // btnClose.onclick = e =>
+            // let btnOk = document.getElementById("btn-ok-input");
+            // btnOk.onclick = e =>
             // {
             //     let passcode = document.getElementById("input-data").value;
             //     if (passcode == GetCookie("passcode"))
@@ -201,12 +212,12 @@ function SetCheckPasscode()
             //     }
 
             //     inputBox.style.display = "none";
-            //     btnClose.onclick = null;
+            //     btnOk.onclick = null;
 
             // };
 
             let passcode = prompt("Enter your passcode:");
-            if (passcode == GetCookie("passcode"))
+            if (passcode != "" && passcode == GetCookie("passcode"))
             {
                 return;
             }

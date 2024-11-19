@@ -177,7 +177,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.input-header .btn-close-input{
+.input-header #btn-close-input{
     float: right;
     color: var(--bs-gray-600);
     position: absolute;
@@ -189,7 +189,7 @@ input::-webkit-inner-spin-button {
     background: transparent;
 }
 
-.input-header .btn-close-input:hover{
+.input-header #btn-close-input:hover{
     color: var(--bs-danger);
 }
 
@@ -223,7 +223,7 @@ input::-webkit-inner-spin-button {
     border-bottom-left-radius: 10px;
 }
 
-.input-footer .btn-close-input{
+.input-footer #btn-ok-input{
     margin: 15px;
 }
 
