@@ -259,7 +259,7 @@ function AccountLogin(userData)
         {
             SetCookie("username", getRequest.result.username, 7);
             SetCookie("password", getRequest.result.password, 7);
-            document.getElementById("label-username").innerText = `[${getRequest.result.username}]`
+            document.getElementById("label-username").innerText = `[${getRequest.result.username}]`;
             console.log(`Xin chào ${getRequest.result.username}!`);
         }
     };
@@ -479,6 +479,10 @@ function CheckLogin()
             window.removeEventListener("wheel", stopWheel);
         }
         
+    }
+    else
+    {
+        document.getElementById("label-username").innerText = `[${GetCookie("username")}]`
     }
 }
 
