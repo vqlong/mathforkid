@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Bé học toán</title>
+        <link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="../css/styles.css">
+        <meta charset="UTF-8">
+        <meta name="keywords" content="HTML, CSS, JavaScript">
+        <meta name="description" content="Sample HTML">
+        <meta name="author" content="Le Rachitique">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="6000">
+        <!-- <base target="_blank"> -->
+        <style>
+            .test-multiplication form{
+                width: 80px;
+            }
+            .test-multiplication form input{
+                /* width: calc(100% - 1rem); */
+                width: 100%;
+                border-radius: 5px;
+            }
+            .test-multiplication form input:focus{
+                box-shadow: 0 0 0 .1rem rgba(13, 110, 253, .25);
+                outline: none;
+            }
+            .multiplication-sign{
+                line-height: 50%;
+            }
+            .text-transparent{
+                color: transparent;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="container"></header>
+        <main class="container mt-5">
+            <h2 id="test-multiplication-header" class="mt-5 text-danger">Multiplication</h2>
+            <div class="position-relative">
+                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestMultiplication(event)">Create multiplications</button>
+                <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestMultiplication(event)">Check</a>          
+                <div class="test-multiplication d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">
+                    <form action="" class="d-flex flex-column align-items-end mx-2 my-3 p-1 border border-danger rounded-3">
+                        <span for="" class="ms-2">1234</span>
+                        <span for="" class="multiplication-sign align-self-start">x</span>
+                        <span for="" class="">321</span>
+                        <span class="d-block border-bottom border-success w-100 text-success"></span>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent"></span>
+                        </div>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent">0</span>
+                        </div>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent">0</span>
+                            <span class="text-transparent">0</span>
+                        </div>
+                        <span class="d-block border-bottom border-success w-100 text-success"></span>
+                        <input type="number" placeholder="?" class="text-success text-end border-0 my-1 p-0">
+                    </form>
+                    <form action="" class="d-flex flex-column align-items-end mx-2 my-3 p-1 border border-danger rounded-3">
+                        <span>1234</span>
+                        <span class="multiplication-sign align-self-start">x</span>
+                        <span>321</span>
+                        <span class="d-block border-bottom border-success w-100 text-success"></span>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent"></span>
+                        </div>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent">0</span>
+                        </div>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent">0</span>
+                            <span class="text-transparent">0</span>
+                        </div>
+                        <span class="d-block border-bottom border-success w-100 text-success"></span>
+                        <input type="number" placeholder="?" class="text-success text-end border-0 my-1 p-0">
+                    </form>
+                </div>
+            </div>
+            
+
+            
+            
+
+        </main>
+        <footer></footer>
+        <script src="../js/scripts.js"></script>
+        <script>
+
+            CreateTestMultiplication(null); 
+
+            function CreateTestMultiplication(event)
+            {
+                let div_test = document.querySelector(".test-multiplication");
+                div_test.innerHTML = "";
+                let limit_a = 9999;
+
+                let limit = GetLimit();
+                if (limit == 100) limit_a = 999;
+                if (limit == 20) limit_a = 99;
+
+                let quantity = GetQuantity();
+                for(let i = 0; i < quantity; i++)
+                {
+                    
+                    let a = Math.floor(Math.random() * (limit_a + 1));
+                    if (a < 10) a += 10;
+                    
+                    let b = Math.floor(Math.random() * (limit_a + 1));
+                    if (b < 10) b += 10;
+                    if (b > 999) b = Math.floor(b/10);
+                    
+                    if (a < b)
+                    {
+                        let temp = a;
+                        a = b;
+                        b = temp;
+                    }
+
+                    
+                    let form_multiplication = document.createElement("form");
+                    form_multiplication.dataset.ans = `${a * b}`;
+                    form_multiplication.style.width = "100px";
+                    form_multiplication.classList = "d-flex flex-column align-items-end mx-4 my-3 p-3";
+                    form_multiplication.innerHTML = `<span>${a}</span>
+                        <span class="multiplication-sign align-self-start">x</span>
+                        <span>${b}</span>
+                        <span class="d-block border-bottom border-success w-100 text-success"></span>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent"></span>
+                        </div>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent">0</span>
+                        </div>
+                        <div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent">0</span>
+                            <span class="text-transparent">0</span>
+                        </div>
+                        <span class="d-block border-bottom border-success w-100 text-success"></span>
+                        <input type="number" placeholder="?" class="answer-box text-success text-end border-0 my-1 p-0">
+                    `;
+
+                    div_test.appendChild(form_multiplication);
+                }
+            }    
+                     
+            function CheckTestMultiplication(event)
+            {
+                let div_test = document.querySelector(".test-multiplication");
+                CheckTest(div_test, "phép nhân. ");
+            }
+            
+            function CheckTest(div_test, comment)
+            {              
+                let point = 0;
+                let forms = div_test.children;
+                for(let f of forms)
+                {
+                    if (f.nodeName == "FORM")
+                    {
+                        let answer = f.querySelector('.answer-box');
+                        if (answer.value == f.dataset.ans) 
+                        {
+                            point++;
+                            f.classList.remove("border", "border-danger", "rounded-3");
+                        }
+                        else
+                        {
+                            f.classList.add("border", "border-danger", "rounded-3");
+                        } 
+                    }
+                }
+                
+                document.getElementById("message-box-body").innerText = point + " điểm.";
+
+                SpeakByBrowser(comment + " " + point + " điểm");
+
+                return point;
+            }           
+
+        </script>    
+    </body>
+</html>
