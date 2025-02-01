@@ -56,9 +56,9 @@
         <script src="../js/scripts.js"></script>
         <script defer> 
             
-            CreateTestSubtraction(null);
-            CreateTestSubtraction2(null);
-            CreateTestSubtraction3(null);
+            // CreateTestSubtraction(null);
+            // CreateTestSubtraction2(null);
+            // CreateTestSubtraction3(null);
 
             function CreateTestSubtraction(event)
             {
@@ -254,44 +254,6 @@
             {
                 let div_test = document.querySelector(".test-subtraction-3");
                 CheckTest(div_test, "tìm số trừ. ");
-            }
-
-            function SliderInput(event)
-            {
-                SliderSelectLimit(event.target);
-            }
-            function SliderSelectLimit(slider)
-            {
-                if (slider.classList.contains("select-subtraction-limit"))
-                {
-                    document.querySelector(".test-subtraction-limit").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-subtraction-quantity"))
-                {
-                    document.querySelector(".test-subtraction-quantity").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-subtraction-2-limit"))
-                {
-                    document.querySelector(".test-subtraction-2-limit").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-subtraction-2-quantity"))
-                {
-                    document.querySelector(".test-subtraction-2-quantity").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-subtraction-3-limit"))
-                {
-                    document.querySelector(".test-subtraction-3-limit").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-subtraction-3-quantity"))
-                {
-                    document.querySelector(".test-subtraction-3-quantity").innerText = slider.value;
-                }
-                
-
-                let width = slider.value*100/slider.getAttribute("max");
-                if (5 < width && width < 20) width++;
-                else if (width <= 5) width += 1.2;
-                slider.previousElementSibling.style.width = width + "%";
             }
 
         </script>   

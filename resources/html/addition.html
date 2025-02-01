@@ -49,9 +49,9 @@
         <script src="../js/scripts.js"></script>
         <script>
 
-            CreateTestAddition(null);            
-            CreateTestAddition3Terms(null);
-            CreateTestAddition2(null);
+            // CreateTestAddition(null);            
+            // CreateTestAddition3Terms(null);
+            // CreateTestAddition2(null);
 
             function CreateTestAddition(event)
             {
@@ -243,43 +243,7 @@
                 SpeakByBrowser(comment + " " + point + " điểm");
             }           
 
-            function SliderInput(event)
-            {
-                SliderSelectLimit(event.target);
-            }
-            function SliderSelectLimit(slider)
-            {
-                if (slider.classList.contains("select-addition-limit"))
-                {
-                    document.querySelector(".test-addition-limit").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-addition-quantity"))
-                {
-                    document.querySelector(".test-addition-quantity").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-addition-3-limit"))
-                {
-                    document.querySelector(".test-addition-3-limit").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-addition-3-quantity"))
-                {
-                    document.querySelector(".test-addition-3-quantity").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-addition-2-limit"))
-                {
-                    document.querySelector(".test-addition-2-limit").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-addition-2-quantity"))
-                {
-                    document.querySelector(".test-addition-2-quantity").innerText = slider.value;
-                }
-                
-
-                let width = slider.value*100/slider.getAttribute("max");
-                if (5 < width && width < 20) width++;
-                else if (width <= 5) width += 1.2;
-                slider.previousElementSibling.style.width = width + "%";
-            }
+            
         </script>    
     </body>
 </html>
