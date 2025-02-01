@@ -61,9 +61,8 @@ function SpeakByBrowser(text)
     window.speechSynthesis.speak(utterThis);
 }
 
-function SliderQuantityInput(slider)
+function SliderInput(slider)
 {
-
     let width = slider.value*100/slider.getAttribute("max");
     if (5 < width && width < 20) width++;
     else if (width <= 5) width += 1.2;
@@ -71,6 +70,10 @@ function SliderQuantityInput(slider)
 
     slider.parentElement.previousElementSibling.innerText = slider.value;
 }
+
+const TIMEOUT = 2000;
+
+setTimeout(() => document.querySelector(".select-quantity").addEventListener("input", e => SliderInput(e.target)), TIMEOUT);
 
 const DEFAULT_QUANTITY = 10;
 const DEFAULT_LIMIT = 1000;
@@ -257,8 +260,7 @@ function AccountLogin(userData)
         }
         else
         {
-            SetCookie("username", getRequest.result.username, 7);
-            SetCookie("password", getRequest.result.password, 7);
+            SetCookie("login", `${getRequest.result.username}@${getRequest.result.password}`, 7);
             document.getElementById("label-username").innerText = `[${getRequest.result.username}]`;
             console.log(`Xin chào ${getRequest.result.username}!`);
         }
@@ -332,7 +334,34 @@ function AccountDelete(userData)
     transaction.oncomplete = () => db.close();
 }
 
+function SaveSetting()
+{
+    let quantity = GetQuantity();
+    let limit = GetLimit();
+    let ckb_carry = document.querySelector("#ckb-carry");
+    // if (ckb_carry == null) ckb_carry = false;
+    let setting = `${quantity}&${limit}&${ckb_carry.checked}`;
+    SetCookie("setting", setting, 7);
+    console.log("all setting saved!");
+}
 
+function GetSetting()
+{
+    let setting = GetCookie("setting").split("&");
+    if (setting.length > 1)
+    {
+        let slider = document.querySelector(".select-quantity");
+        slider.value = setting[0];
+        SliderInput(slider);
+
+        if (setting[1] == 20) document.querySelector(".limit-20").checked = true;
+        if (setting[1] == 100) document.querySelector(".limit-100").checked = true;
+        if (setting[1] == 1000) document.querySelector(".limit-1000").checked = true;
+
+        if (setting[2] == "true") document.querySelector("#ckb-carry").checked = true;
+        else document.querySelector("#ckb-carry").checked = false;
+    }
+}
 
 function SetCheckPassword()
 {
@@ -340,9 +369,15 @@ function SetCheckPassword()
     {
         element.addEventListener("show.bs.dropdown", eventDropdown => 
         {
+            let login = GetCookie("login");
+            if (login == "")
+            {
+                eventDropdown.stopPropagation();
+                eventDropdown.preventDefault();
+            }
 
             let passcode = prompt("Enter your password:");
-            if (passcode != "" && passcode == GetCookie("password"))
+            if (passcode != "" && passcode == GetCookie("login").split("@")[1])
             {
                 return;
             }
@@ -353,14 +388,19 @@ function SetCheckPassword()
             }
             
         });
+
+        element.addEventListener("hide.bs.dropdown", () => 
+        { 
+            SaveSetting();
+        });
     });
 }
 
-setTimeout(SetCheckPassword, 3000);
+setTimeout(SetCheckPassword, TIMEOUT);
 
 function CheckLogin()
 {
-    if (CheckCookie("username") == false)
+    if (CheckCookie("login") == false)
     {
         let loginBox = document.getElementById("login-box");
         loginBox.style.display = "flex";
@@ -420,11 +460,12 @@ function CheckLogin()
     }
     else
     {
-        document.getElementById("label-username").innerText = `[${GetCookie("username")}]`
+        document.getElementById("label-username").innerText = `[${GetCookie("login").split("@")[0]}]`;
+        GetSetting();
     }
 }
 
-setTimeout(CheckLogin, 3000);
+setTimeout(CheckLogin, TIMEOUT);
 
 
 

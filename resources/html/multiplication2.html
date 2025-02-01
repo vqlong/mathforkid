@@ -40,11 +40,11 @@
             <div class="position-relative">
                 <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestMultiplication(event)">Create multiplications</button>
                 <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestMultiplication(event)">Check</a>          
-                <div class="test-multiplication d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">
+                <div class="test-multiplication d-flex justify-content-around flex-wrap my-2 p-1 border border-success rounded-4 text-success">
                     <form action="" class="d-flex flex-column align-items-end mx-2 my-3 p-1 border border-danger rounded-3">
-                        <span for="" class="ms-2">1234</span>
-                        <span for="" class="multiplication-sign align-self-start">x</span>
-                        <span for="" class="">321</span>
+                        <span>1234</span>
+                        <span class="multiplication-sign align-self-start">x</span>
+                        <span class="">321</span>
                         <span class="d-block border-bottom border-success w-100 text-success"></span>
                         <div class="d-flex">
                             <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
@@ -70,7 +70,7 @@
         <script src="../js/scripts.js"></script>
         <script>
 
-            CreateTestMultiplication(null); 
+            setTimeout(CreateTestMultiplication, 2000);
 
             function CreateTestMultiplication(event)
             {
@@ -103,7 +103,7 @@
                     
                     let form_multiplication = document.createElement("form");
                     form_multiplication.dataset.ans = `${a * b}`;
-                    form_multiplication.style.width = "150px";
+                    form_multiplication.style.width = "155px";
                     form_multiplication.style.fontSize = "2rem";
                     form_multiplication.classList = "d-flex flex-column align-items-end mx-2 my-3 p-3";
                     let line3 = `<div class="d-flex">
