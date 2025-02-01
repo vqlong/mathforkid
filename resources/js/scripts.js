@@ -333,75 +333,13 @@ function AccountDelete(userData)
 }
 
 
-function SetPasscode()
-{
-    if (CheckCookie("passcode") == false)
-    {
-        document.getElementById("login-prompt").innerHTML = "Enter a new passcode:";
-        let inputBox = document.getElementById("login-box");
-        inputBox.style.display = "flex";
-        let stopWheel = e => e.preventDefault();
-        window.addEventListener("wheel", stopWheel, { passive:false });
 
-        let btnOk = document.getElementById("btn-ok-login");
-        btnOk.onclick = e =>
-        {
-            let passcode = document.getElementById("login-data").value;
-            if(passcode != "" && passcode != null)
-            {
-                SetCookie("passcode", passcode, 7);
-                inputBox.style.display = "none";
-                btnOk.onclick = null;
-                window.removeEventListener("wheel", stopWheel);
-            }
-            else
-            {
-                e.preventDefault();
-            }
-            
-        };
-
-        let btnClose = document.getElementById("btn-close-login");
-        btnClose.onclick = e =>
-        {
-            inputBox.style.display = "none";
-            window.removeEventListener("wheel", stopWheel);
-            btnClose.onclick = null;
-        }
-        
-    }
-}
-
-// setTimeout(SetPasscode, 3000);
-
-function SetCheckPasscode()
+function SetCheckPassword()
 {
     Array.from(document.getElementsByClassName("login-required")).forEach(element =>
     {
         element.addEventListener("show.bs.dropdown", eventDropdown => 
         {
-            // document.getElementById("input-prompt").innerHTML = "Enter your passcode:";
-            // let inputBox = document.getElementById("input-box");
-            // inputBox.style.display = "flex";
-
-            // let btnOk = document.getElementById("btn-ok-input");
-            // btnOk.onclick = e =>
-            // {
-            //     let passcode = document.getElementById("input-data").value;
-            //     if (passcode == GetCookie("passcode"))
-            //     {
-                    
-            //     }
-            //     else
-            //     {
-            //         eventDropdown.stopPropagation();
-            //         eventDropdown.preventDefault();
-            //     }
-
-            //     inputBox.style.display = "none";
-            //     btnOk.onclick = null;
-
-            // };
 
             let passcode = prompt("Enter your password:");
             if (passcode != "" && passcode == GetCookie("password"))
@@ -418,7 +356,7 @@ function SetCheckPasscode()
     });
 }
 
-setTimeout(SetCheckPasscode, 3000);
+setTimeout(SetCheckPassword, 3000);
 
 function CheckLogin()
 {
