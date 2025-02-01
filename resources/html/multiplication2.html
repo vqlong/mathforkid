@@ -105,6 +105,12 @@
                     form_multiplication.dataset.ans = `${a * b}`;
                     form_multiplication.style.width = "100px";
                     form_multiplication.classList = "d-flex flex-column align-items-end mx-4 my-3 p-3";
+                    let line3 = `<div class="d-flex">
+                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                            <span class="text-transparent">0</span>
+                            <span class="text-transparent">0</span>
+                        </div>`;
+                    if (b < 100) line3 = "";
                     form_multiplication.innerHTML = `<span>${a}</span>
                         <span class="multiplication-sign align-self-start">x</span>
                         <span>${b}</span>
@@ -117,11 +123,7 @@
                             <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
                             <span class="text-transparent">0</span>
                         </div>
-                        <div class="d-flex">
-                            <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
-                            <span class="text-transparent">0</span>
-                            <span class="text-transparent">0</span>
-                        </div>
+                        ${line3}
                         <span class="d-block border-bottom border-success w-100 text-success"></span>
                         <input type="number" placeholder="?" class="answer-box text-success text-end border-0 my-1 p-0">
                     `;
