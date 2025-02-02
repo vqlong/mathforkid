@@ -105,9 +105,9 @@ function GetLimit()
     }
 }
 
-let handleCookies = document.createElement("script");
-handleCookies.setAttribute("src", "../js/handle-cookies.js");
-document.body.appendChild(handleCookies);
+// let handleCookies = document.createElement("script");
+// handleCookies.setAttribute("src", "../js/handle-cookies.js");
+// document.body.appendChild(handleCookies);
 
 // yêu cầu passcode khi thay đổi cài đặt phép tính
 
