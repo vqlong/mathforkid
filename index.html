@@ -426,26 +426,6 @@
                 timeout += interval;
             }
 
-            function SliderInput(event)
-            {
-                SliderSelectLimit(event.target);
-            }
-            function SliderSelectLimit(slider)
-            {               
-                if (slider.classList.contains("select-sorting-limit"))
-                {
-                    document.querySelector(".test-sorting-limit").innerText = slider.value;
-                }
-                else if (slider.classList.contains("select-sorting-quantity"))
-                {
-                    document.querySelector(".test-sorting-quantity").innerText = slider.value;
-                }
-
-                let width = slider.value*100/slider.getAttribute("max");
-                if (5 < width && width < 20) width++;
-                else if (width <= 5) width += 1.2;
-                slider.previousElementSibling.style.width = width + "%";
-            }
         </script>    
     </body>
 </html>
