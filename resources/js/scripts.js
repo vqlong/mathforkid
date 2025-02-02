@@ -1,7 +1,6 @@
-
-// let path = window.location.pathname;
-// if (path == "/" || path == "/index.html") path = "./resources/html/";
-// else path = "./";
+const TIMEOUT = 2000;
+const DEFAULT_QUANTITY = 10;
+const DEFAULT_LIMIT = 1000;
 
 let path = "/resources/html/";
 if (window.location.pathname.indexOf("mathforkid") > 0) path = "/mathforkid/resources/html/";
@@ -13,6 +12,10 @@ fetch(path + 'message-box.html')
 fetch(path + 'login-box.html')
         .then(response => response.text())
         .then(text => document.querySelector('main').innerHTML += text);
+
+fetch(path + 'input-box.html')
+    .then(response => response.text())
+    .then(text => document.querySelector('main').innerHTML += text);
 
 fetch(path + 'header.html')
     .then(response => response.text())
@@ -35,7 +38,6 @@ fetch(path + 'btn-top-bot.html')
     .then(text => document.querySelector('main').innerHTML += text);
 
 
-
 // if (navigator.maxTouchPoints != 0)
 // {
 //     let sliders = document.getElementsByClassName("slider-container");
@@ -44,6 +46,48 @@ fetch(path + 'btn-top-bot.html')
 //         s.style.pointerEvents = "none";
 //     }
 // }
+
+function MessageBox(message)
+{
+    document.getElementById("message-box-body").innerText = message;
+    let messageBox = document.getElementById("message-box");
+    new bootstrap.Modal(messageBox).show();
+}
+
+
+const stopWheel = e => e.preventDefault();
+
+const closeInputBox = () => 
+{
+    document.getElementById('input-box').style.display = 'none';
+    window.removeEventListener("wheel", stopWheel);
+    document.getElementById("input-data").value = "";
+};
+
+function InputBox(prompt, inputCallback, isPassword = true)
+{
+    let inputData = document.getElementById("input-data");
+    if (isPassword) inputData.type = "password";
+    else inputData.type = "text";
+
+    document.getElementById("input-prompt").innerText = prompt;
+
+    let inputBox = document.getElementById("input-box");         
+    inputBox.style.display = "flex";
+
+    // chặn lăn chuột
+    window.addEventListener("wheel", stopWheel, { passive: false });
+
+    let btnOK = document.getElementById("btn-ok-input");
+    btnOK.onclick = () =>
+    {
+        inputCallback();
+        closeInputBox();
+        btnOK.onclick = null;
+    }
+}
+
+setTimeout(() => document.getElementById("btn-close-input").addEventListener("click", closeInputBox), TIMEOUT);
 
 function SpeakByBrowser(text)
 {           
@@ -71,12 +115,8 @@ function SliderInput(slider)
     slider.parentElement.previousElementSibling.innerText = slider.value;
 }
 
-const TIMEOUT = 2000;
-
 setTimeout(() => document.querySelector(".select-quantity").addEventListener("input", e => SliderInput(e.target)), TIMEOUT);
 
-const DEFAULT_QUANTITY = 10;
-const DEFAULT_LIMIT = 1000;
 function GetQuantity()
 {
     let select_quantity = document.querySelector(".select-quantity");
@@ -109,7 +149,6 @@ function GetLimit()
 // handleCookies.setAttribute("src", "../js/handle-cookies.js");
 // document.body.appendChild(handleCookies);
 
-// yêu cầu passcode khi thay đổi cài đặt phép tính
 
 function SetCookie(name, value, expdays)
 {
@@ -363,29 +402,45 @@ function GetSetting()
     }
 }
 
+let canDropdown = false;
+
 function SetCheckPassword()
 {
     Array.from(document.getElementsByClassName("login-required")).forEach(element =>
     {
         element.addEventListener("show.bs.dropdown", eventDropdown => 
         {
-            let login = GetCookie("login");
-            if (login == "")
+            if (canDropdown)
             {
-                eventDropdown.stopPropagation();
-                eventDropdown.preventDefault();
-            }
-
-            let passcode = prompt("Enter your password:");
-            if (passcode != "" && passcode == GetCookie("login").split("@")[1])
-            {
+                canDropdown = false;
                 return;
             }
             else
             {
+                // chặn dropdown để hỏi mật khẩu trước
                 eventDropdown.stopPropagation();
                 eventDropdown.preventDefault();
             }
+
+            // nếu chưa login sẽ chặn thao tác
+            let login = GetCookie("login");
+            if (login == "")
+            {
+                MessageBox("Bạn chưa đăng nhập!");
+                return;
+            }
+
+            // hiện sửa sổ đòi mật khẩu
+            InputBox("Nhập mật khẩu:", () => 
+            {
+                let password = document.getElementById("input-data").value;
+                if (password != "" && password == login.split("@")[1])
+                {
+                    canDropdown = true;
+                    setTimeout(() => new bootstrap.Dropdown(element).show(), 100);
+                }
+            });
+        
             
         });
 
@@ -393,7 +448,7 @@ function SetCheckPassword()
         { 
             SaveSetting();
         });
-    });
+    });  
 }
 
 setTimeout(SetCheckPassword, TIMEOUT);
@@ -404,7 +459,6 @@ function CheckLogin()
     {
         let loginBox = document.getElementById("login-box");
         loginBox.style.display = "flex";
-        let stopWheel = e => e.preventDefault();
         window.addEventListener("wheel", stopWheel, { passive:false });
 
         let btnLogin = document.getElementById("btn-login");
