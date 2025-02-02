@@ -72,10 +72,6 @@
                 <div class="test-sorting sorting-greater d-flex justify-content-center row-gap-1 column-gap-5 flex-wrap my-2 py-3 px-1 border border-success rounded-4 text-success">3  2  1</div>          
             </div>
 
-
-
-                   
-
         </main>
         <footer></footer>
         <script src="./resources/js/scripts.js"></script>
@@ -94,7 +90,7 @@
                 btn.appendChild(img);
             }
 
-            CreateTestSorting(null);
+            // CreateTestSorting(null);
             CreateTable("+");
 
             function CreateTestSorting(event)
@@ -235,14 +231,16 @@
                         p.className = "my-2 px-3 py-1";
                         p.addEventListener("click", e =>
                         {
-                            if (navigator.maxTouchPoints != 0)
-                            {
-                                SpeakByBrowser(text);
-                                return;
-                            }
-                            let ckb = document.getElementById("ckb-vn");
-                            if (ckb.checked == true) SpeakMultiplicationByVn(text);
-                            else SpeakByBrowser(text);
+                            // if (navigator.maxTouchPoints != 0)
+                            // {
+                            //     SpeakByBrowser(text);
+                            //     return;
+                            // }
+                            // let ckb = document.getElementById("ckb-vn");
+                            // if (ckb.checked == true) SpeakMultiplicationByVn(text);
+                            // else SpeakByBrowser(text);
+
+                            SpeakByBrowser(text);
 
                         });
                         div.appendChild(p);
