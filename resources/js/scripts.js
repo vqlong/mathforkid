@@ -19,7 +19,27 @@ fetch(path + 'input-box.html')
 
 fetch(path + 'header.html')
     .then(response => response.text())
-    .then(text => document.querySelector('header').innerHTML = text);
+    .then(text => document.querySelector('header').innerHTML = text)
+    .then(() => {
+        let script = document.createElement('script');
+        script.innerHTML = 
+        `function googleTranslateElementInit()
+        {
+            new google.translate.TranslateElement(
+            { 
+                pageLanguage: "vi", 
+                includedLanguages: "en,zh-CN,ja,ko" , 
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            },
+             "google_translate_element");
+        }`;
+
+        let translator = document.querySelector('.translator');
+        translator.appendChild(script);
+        let script1 = document.createElement('script');
+        script1.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        translator.appendChild(script1);
+    });
 
 fetch(path + 'footer.html')
     .then(response => response.text())
