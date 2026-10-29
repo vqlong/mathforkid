@@ -1,0 +1,51 @@
+<style>
+    .test-multiplication form input {
+        /* width: calc(100% - 1rem); */
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .test-multiplication form input:focus {
+        box-shadow: 0 0 0 .1rem rgba(13, 110, 253, .25);
+        outline: none;
+    }
+
+    .multiplication-sign {
+        line-height: 50%;
+    }
+
+    .text-transparent {
+        color: transparent;
+    }
+</style>
+<h2 id="test-multiplication-header" class="mt-5 text-danger">Phép nhân</h2>
+<div class="position-relative">
+    <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0"
+        onclick="CreateTestMultiplication3(event)">Tạo phép tính</button>
+    <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal"
+        onclick="CheckTestMultiplication3(event)">Kiểm tra</a>
+    <div
+        class="test-multiplication d-flex justify-content-around flex-wrap my-2 p-1 border border-success rounded-4 text-success">
+        <form action="" class="d-flex flex-column align-items-end mx-2 my-3 p-1 border border-danger rounded-3">
+            <span>1234</span>
+            <span class="multiplication-sign align-self-start">x</span>
+            <span class="">321</span>
+            <span class="d-block border-bottom border-success w-100 text-success"></span>
+            <div class="d-flex">
+                <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                <span class="text-transparent"></span>
+            </div>
+            <div class="d-flex">
+                <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                <span class="text-transparent">0</span>
+            </div>
+            <div class="d-flex">
+                <input type="number" placeholder="?" class="flex-fill text-success text-end border-0 my-1 p-0">
+                <span class="text-transparent">0</span>
+                <span class="text-transparent">0</span>
+            </div>
+            <span class="d-block border-bottom border-success w-100 text-success"></span>
+            <input type="number" placeholder="?" class="text-success text-end border-0 my-1 p-0">
+        </form>
+    </div>
+</div>

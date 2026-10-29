@@ -1,249 +1,32 @@
-<!DOCTYPE html>
-<html lang="vi">
-    <head>
-        <title>Bé học toán</title>
-        <link rel="icon" type="image/x-icon" sizes="16x16" href="/resources/img/favicon.ico">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-        <link rel="stylesheet" href="../css/styles.css">
-        <meta charset="UTF-8">
-        <meta name="keywords" content="HTML, CSS, JavaScript">
-        <meta name="description" content="Sample HTML">
-        <meta name="author" content="Le Rachitique">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="refresh" content="6000">
-        <!-- <base target="_blank"> -->
-        <style>
+<h2 id="test-addition-header" class="mt-5 text-danger">Phép cộng</h2>
+<div class="position-relative">
+    <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0"
+        onclick="CreateTestAddition(event)">Tạo phép tính</button>
+    <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal"
+        onclick="CheckTestAddition(event)">Kiểm tra</a>
+    <div
+        class="test-addition d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">
+        1 + 1 = 2</div>
+</div>
 
+<h2 id="test-addition-3-terms-header" class="mt-5 text-danger">Phép cộng 3 số</h2>
+<div class="position-relative">
+    <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0"
+        onclick="CreateTestAddition3Terms(event)">Tạo phép tính</button>
+    <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal"
+        onclick="CheckTestAddition3Terms(event)">Kiểm tra</a>
+    <div
+        class="test-addition-3 d-flex justify-content-center flex-wrap my-2 p-3 border border-success rounded-4 text-success">
+        1 + 1 = 2</div>
+</div>
 
-        </style>
-    </head>
-    <body>
-        <header class="container"></header>
-        <main class="container mt-5">
-            <h2 id="test-addition-header" class="mt-5 text-danger">Phép cộng</h2>
-            <div class="position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestAddition(event)">Tạo phép tính</button>
-                <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition(event)">Kiểm tra</a>          
-                <div class="test-addition d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 + 1 = 2</div>
-            </div>
-            
-            <h2 id="test-addition-3-terms-header" class="mt-5 text-danger">Phép cộng 3 số</h2>
-            <div class="position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestAddition3Terms(event)">Tạo phép tính</button>
-                <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition3Terms(event)">Kiểm tra</a>
-                <div class="test-addition-3 d-flex justify-content-center flex-wrap my-2 p-3 border border-success rounded-4 text-success">1 + 1 = 2</div>
-            </div> 
-            
-            <h2 id="test-addition-2-header" class="mt-5 text-danger">Tìm số hạng</h2>
-            <div class="position-relative">
-                <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0" onclick="CreateTestAddition2(event)">Tạo phép tính</button>
-                <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal" onclick="CheckTestAddition2(event)">Kiểm tra</a>          
-                <div class="test-addition-2 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">1 + 1 = 2</div>
-            </div>
-            
-            
-
-        </main>
-        <footer></footer>
-        <script src="../js/scripts.js"></script>
-        <script>
-
-            // CreateTestAddition(null);            
-            // CreateTestAddition3Terms(null);
-            // CreateTestAddition2(null);
-
-            function CreateTestAddition(event)
-            {
-                let div_test = document.querySelector(".test-addition");
-                div_test.innerHTML = "";
-                let limit = GetLimit();
-                let quantity = GetQuantity();
-                for(let i = 0; i < quantity; i++)
-                {
-                    
-                    let a = Math.floor(Math.random() * (limit + 1));
-                    let b = Math.floor(Math.random() * (limit - a + 1));
-
-                    let ckb_carry = document.querySelector("#ckb-carry");
-                    if (ckb_carry == null || ckb_carry.checked != true)
-                    {
-                        while ((a%10)+(b%10)>9)
-                        {
-                            b--;    
-                        }
-                    }
-
-                    let question = document.createElement("label");
-                    question.innerText = `${a} + ${b} = `;
-
-                    let answer = document.createElement("input");
-                    answer.setAttribute("type", "number");
-                    answer.setAttribute("min", "0");
-                    answer.setAttribute("max", `${limit}`);
-                    answer.setAttribute("placeholder", "?");
-                    answer.setAttribute("required", "");
-                    answer.style.width = "40px";
-                    answer.classList = "form-control d-inline-block ms-1 p-1 text-success text-center answer-box";
-
-                    let form_addition = document.createElement("form");
-                    form_addition.dataset.ans = `${a + b}`;
-                    form_addition.style.width = "145px";
-                    form_addition.classList = "d-flex justify-content-end align-items-center d-inline-block mx-1 my-3 p-1 was-validatedz bg-infoz";
-                    form_addition.appendChild(question);
-                    form_addition.appendChild(answer);
-
-                    div_test.appendChild(form_addition);
-                }
-            }
-            function CreateTestAddition3Terms(event)
-            {
-                let div_test = document.querySelector(".test-addition-3");
-                div_test.innerHTML = "";
-                let limit = GetLimit();
-                let quantity = GetQuantity();
-                for(let i = 0; i < quantity; i++)
-                {
-                    
-                    let a = Math.floor(Math.random() * (limit + 1));
-                    let b = Math.floor(Math.random() * (limit - a + 1));
-                    let c = Math.floor(Math.random() * (limit - a - b + 1));
-
-                    let ckb_carry = document.querySelector("#ckb-carry");
-                    if (ckb_carry == null || ckb_carry.checked != true)
-                    {
-                        let a_flag = true, b_flag = true, c_flag = false;
-                        while ((a%10)+(b%10)+(c%10)>9)
-                        {
-                            if (a_flag && a > 0)
-                            {
-                                a--;
-                                a_flag = false;
-                            }
-                            else if (b_flag && b > 0)
-                            {
-                                b--;
-                                b_flag = false;
-                            }
-                            else
-                            {
-                                if (c > 0) c--;
-                                a_flag = true;
-                                b_flag = true;
-                            } 
-                        }
-                    }
-
-                    let question = document.createElement("label");
-                    question.innerText = `${a} + ${b} + ${c} = `;
-
-                    let answer = document.createElement("input");
-                    answer.setAttribute("type", "number");
-                    answer.setAttribute("min", "0");
-                    answer.setAttribute("max", `${limit}`);
-                    answer.setAttribute("placeholder", "?");
-                    answer.setAttribute("required", "");
-                    answer.style.width = "40px";
-                    answer.classList = "form-control d-inline-block ms-1 p-1 text-success text-center answer-box";
-
-                    let form_addition = document.createElement("form");
-                    form_addition.dataset.ans = `${a + b + c}`;
-                    form_addition.style.width = "190px";
-                    form_addition.classList = "d-flex justify-content-end align-items-center d-inline-block m-3 p-1 was-validatedz bg-infoz";
-                    form_addition.appendChild(question);
-                    form_addition.appendChild(answer);
-
-                    div_test.appendChild(form_addition);
-                }
-            }            
-            function CreateTestAddition2(event)
-            {
-                let div_test = document.querySelector(".test-addition-2");
-                div_test.innerHTML = "";
-                let limit = GetLimit();
-                let quantity = GetQuantity();
-                for(let i = 0; i < quantity; i++)
-                {
-                    
-                    let a = Math.floor(Math.random() * (limit + 1));
-                    let b = Math.floor(Math.random() * (limit - a + 1));
-                    let c = a + b;
-
-                    let ckb_carry = document.querySelector("#ckb-carry");
-                    if (ckb_carry == null || ckb_carry.checked != true)
-                    {
-                        while ((c%10)-(b%10)<0)
-                        {
-                            b--;
-                            a++;    
-                        }
-                    }
-
-                    let addend = document.createElement("label");
-                    addend.innerText = `+ ${b} = ${c}`;
-
-                    let answer = document.createElement("input");
-                    answer.setAttribute("type", "number");
-                    answer.setAttribute("min", "0");
-                    answer.setAttribute("max", `${limit}`);
-                    answer.setAttribute("placeholder", "?");
-                    answer.setAttribute("required", "");
-                    answer.style.width = "40px";
-                    answer.classList = "form-control d-inline-block me-1 p-1 text-success text-center answer-box";
-
-                    let form_addition = document.createElement("form");
-                    form_addition.dataset.ans = `${a}`;
-                    form_addition.style.width = "146px";
-                    form_addition.classList = "d-flex justify-content-start align-items-center d-inline-block mx-1 my-3 p-1 was-validatedz bg-infoz";
-                    form_addition.appendChild(answer);
-                    form_addition.appendChild(addend);
-
-                    div_test.appendChild(form_addition);
-                }
-            }        
-                        
-            function CheckTestAddition(event)
-            {
-                let div_test = document.querySelector(".test-addition");
-                CheckTest(div_test, "phép cộng. ");
-            }
-            function CheckTestAddition3Terms(event)
-            {
-                let div_test = document.querySelector(".test-addition-3");
-                CheckTest(div_test, "phép cộng 3 số. ");
-            }
-            function CheckTestAddition2(event)
-            {
-                let div_test = document.querySelector(".test-addition-2");
-                CheckTest(div_test, "tìm số hạng. ");
-            }
-            function CheckTest(div_test, comment)
-            {              
-                let point = 0;
-                let forms = div_test.children;
-                for(let f of forms)
-                {
-                    if (f.nodeName == "FORM")
-                    {
-                        let answer = f.querySelector('.answer-box');
-                        if (answer.value == f.dataset.ans) 
-                        {
-                            point++;
-                            f.classList.remove("border", "border-danger", "rounded-3");
-                        }
-                        else
-                        {
-                            f.classList.add("border", "border-danger", "rounded-3");
-                        } 
-                    }
-                }
-                
-                document.getElementById("message-box-body").innerText = point + " điểm.";
-
-                SpeakByBrowser(comment + " " + point + " điểm");
-            }           
-
-            
-        </script>    
-    </body>
-</html>
+<h2 id="test-addition-2-header" class="mt-5 text-danger">Tìm số hạng</h2>
+<div class="position-relative">
+    <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0"
+        onclick="CreateTestAddition2(event)">Tạo phép tính</button>
+    <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal"
+        onclick="CheckTestAddition2(event)">Kiểm tra</a>
+    <div
+        class="test-addition-2 d-flex justify-content-center flex-wrap my-2 p-1 border border-success rounded-4 text-success">
+        1 + 1 = 2</div>
+</div>

@@ -1,0 +1,57 @@
+<style>
+    #table1>div>p:hover {
+        background-color: var(--bs-success);
+        color: var(--bs-white);
+    }
+
+    .btn-speak {
+        font-size: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+</style>
+<h2 class="text-danger mt-5">Tập đếm</h2>
+<div class="d-flex border border-success rounded-pill text-success" style="font-size: 100px;">
+    <div class="d-flex justify-content-start align-items-center ps-3" style="width: 20%;">
+        <button class="btn btn-outline-success btn-speak" onclick="SpeakCounter(event)">&#x1F56A;</button>
+    </div>
+    <div id="counter-display" class="text-center" style="width: 60%;" contenteditable="true">
+        0
+    </div>
+    <div class="d-flex flex-column justify-content-around py-3 pe-3" style="width: 20%;">
+        <button onclick="Up(event)" class="btn btn-outline-success rounded-pill flex-grow-1 my-1">▲</button>
+        <button onclick="Down(event)" class="btn btn-outline-success rounded-pill flex-grow-1 my-1">▼</button>
+    </div>
+</div>
+
+<div class="mt-5 btn-group w-100">
+    <button class="btn btn-outline-success rounded-start-3 btn-select-table" onclick="SelectTable(event)">x</button>
+    <button class="btn btn-outline-success rounded-end-3 btn-select-table active"
+        onclick="SelectTable(event)">+</button>
+</div>
+
+<h2 id="table1-header" class="mt-5 text-danger">Bảng cộng</h2>
+<div id="table1" class="d-flex justify-content-center flex-wrap">
+    <div
+        class="d-inline-block m-2 border border-success rounded-4 text-success">
+        <p class="my-2 px-3 py-1">1 + 1 = 2</p>
+    </div>
+</div>
+
+<h2 id="test-sorting-header" class="mt-5 text-danger">Sắp xếp</h2>
+<div class="position-relative">
+    <button class="btn btn-outline-success rounded-3 position-absolute top-0 end-0"
+        onclick="CreateTestSorting(event)">Tạo phép tính</button>
+    <a class="btn btn-success rounded-3 sticky-top" href="#message-box" data-bs-toggle="modal"
+        onclick="CheckTestSorting(event)">Kiểm tra</a>
+    <div
+        class="test-sorting sorting-less d-flex justify-content-center row-gap-1 column-gap-5 flex-wrap my-2 py-3 px-1 border border-success rounded-4 text-success">
+        1 2 3</div>
+    <div
+        class="test-sorting sorting-greater d-flex justify-content-center row-gap-1 column-gap-5 flex-wrap my-2 py-3 px-1 border border-success rounded-4 text-success">
+        3 2 1</div>
+</div>

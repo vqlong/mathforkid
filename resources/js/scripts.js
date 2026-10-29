@@ -2,74 +2,50 @@ const TIMEOUT = 2000;
 const DEFAULT_QUANTITY = 10;
 const DEFAULT_LIMIT = 1000;
 
-let path = "/resources/html/";
-if (window.location.pathname.indexOf("mathforkid") > 0) 
+const pageContent = document.getElementById("page-content");
+            
+const navbot = document.getElementById("navbot-collapse-content");
+navbot.addEventListener("click", e => 
 {
-    path = "/mathforkid/resources/html/";
-    document.head.innerHTML += '<link rel="icon" href="/mathforkid/resources/img/favicon.ico">'
-}
+    const a = e.target.closest("a");
+    if (a && navbot.contains(a))
+    {
+        e.preventDefault();
+        fetch(a.href)
+            .then(res => res.text())
+            .then(text => pageContent.innerHTML = text);
+    }
+});
 
-fetch(path + 'message-box.html')
-        .then(response => response.text())
-        .then(text => document.querySelector('main').innerHTML += text);
+navbot.children[0].click();
 
-fetch(path + 'login-box.html')
-        .then(response => response.text())
-        .then(text => document.querySelector('main').innerHTML += text);
-
-fetch(path + 'input-box.html')
-    .then(response => response.text())
-    .then(text => document.querySelector('main').innerHTML += text);
-
-fetch(path + 'header.html')
-    .then(response => response.text())
-    .then(text => document.querySelector('header').innerHTML = text)
-    .then(() => {
-        let script = document.createElement('script');
-        script.innerHTML = 
-        `function googleTranslateElementInit()
+function CheckTest(div_test, comment)
+{
+    let point = 0;
+    let forms = div_test.children;
+    for (let f of forms)
+    {
+        if (f.nodeName == "FORM")
         {
-            new google.translate.TranslateElement(
-            { 
-                pageLanguage: "vi", 
-                includedLanguages: "en,zh-CN,ja,ko" , 
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            },
-             "google_translate_element");
-        }`;
+            let answer = f.querySelector('.answer-box');
+            if (answer.value == f.dataset.ans)
+            {
+                point++;
+                f.classList.remove("border", "border-danger", "rounded-3");
+            }
+            else
+            {
+                f.classList.add("border", "border-danger", "rounded-3");
+            }
+        }
+    }
 
-        let translator = document.querySelector('.translator');
-        translator.appendChild(script);
-        let script1 = document.createElement('script');
-        script1.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-        translator.appendChild(script1);
-    });
+    document.getElementById("message-box-body").innerText = point + " điểm.";
 
-fetch(path + 'footer.html')
-    .then(response => response.text())
-    .then(text => document.querySelector('footer').innerHTML = text);
+    SpeakByBrowser(comment + " " + point + " điểm");
 
-fetch(path + 'nav-top.html')
-    .then(response => response.text())
-    .then(text => document.querySelector('main').innerHTML = text + document.querySelector('main').innerHTML);
-
-fetch(path + 'nav-bot.html')
-    .then(response => response.text())
-    .then(text => document.querySelector('main').innerHTML += text);
-
-fetch(path + 'btn-top-bot.html')
-    .then(response => response.text())
-    .then(text => document.querySelector('main').innerHTML += text);
-
-
-// if (navigator.maxTouchPoints != 0)
-// {
-//     let sliders = document.getElementsByClassName("slider-container");
-//     for(let s of sliders)
-//     {
-//         s.style.pointerEvents = "none";
-//     }
-// }
+    return point;
+}
 
 function MessageBox(message)
 {
@@ -88,30 +64,42 @@ const closeInputBox = () =>
     document.getElementById("input-data").value = "";
 };
 
-function InputBox(prompt, inputCallback, isPassword = true)
+function InputBox(prompt, okCallback, isPassword = true)
 {
     let inputData = document.getElementById("input-data");
+    let btnOk = document.getElementById("btn-ok-input");
+
     if (isPassword) inputData.type = "password";
     else inputData.type = "text";
+
+    inputData.addEventListener("keydown", e =>
+    {
+        if (e.key === "Enter")
+        {
+            e.preventDefault();
+            btnOk.click();
+        }
+    });
+    btnOk.onclick = () =>
+    {
+        if (okCallback) okCallback();
+        closeInputBox();
+        btnOk.onclick = null;
+        inputData.onkeydown = null;
+    }
 
     document.getElementById("input-prompt").innerText = prompt;
 
     let inputBox = document.getElementById("input-box");         
     inputBox.style.display = "flex";
+    inputData.focus();
 
     // chặn lăn chuột
     window.addEventListener("wheel", stopWheel, { passive: false });
 
-    let btnOK = document.getElementById("btn-ok-input");
-    btnOK.onclick = () =>
-    {
-        inputCallback();
-        closeInputBox();
-        btnOK.onclick = null;
-    }
 }
 
-setTimeout(() => document.getElementById("btn-close-input").addEventListener("click", closeInputBox), TIMEOUT);
+document.getElementById("btn-close-input").addEventListener("click", closeInputBox);
 
 function SpeakByBrowser(text)
 {           
@@ -140,7 +128,7 @@ function SliderInput(slider)
     slider.parentElement.previousElementSibling.innerText = slider.value;
 }
 
-setTimeout(() => document.querySelector(".select-quantity").addEventListener("input", e => SliderInput(e.target)), TIMEOUT);
+document.querySelector(".select-quantity").addEventListener("input", e => SliderInput(e.target));
 
 function GetQuantity()
 {
@@ -273,6 +261,7 @@ function AccountAdd(userData)
 
     addRequest.onerror = (event) => {
         console.error(event);
+        document.getElementById("login-status").innerText = "Đăng ký thất bại!";
     }
 
 
@@ -484,6 +473,7 @@ function CheckLogin()
     {
         let loginBox = document.getElementById("login-box");
         loginBox.style.display = "flex";
+        document.getElementById("login-username").focus();
         window.addEventListener("wheel", stopWheel, { passive:false });
 
         let btnLogin = document.getElementById("btn-login");
