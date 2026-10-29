@@ -3,7 +3,11 @@ const DEFAULT_QUANTITY = 10;
 const DEFAULT_LIMIT = 1000;
 
 let path = "/resources/html/";
-if (window.location.pathname.indexOf("mathforkid") > 0) path = "/mathforkid/resources/html/";
+if (window.location.pathname.indexOf("mathforkid") > 0) 
+{
+    path = "/mathforkid/resources/html/";
+    document.head.innerHTML += '<link rel="icon" href="/mathforkid/resources/img/favicon.ico">'
+}
 
 fetch(path + 'message-box.html')
         .then(response => response.text())
