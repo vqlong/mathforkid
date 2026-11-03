@@ -204,5 +204,6 @@ function Down()
 function SpeakCounter()
 {
     let text = document.getElementById("counter-display").innerText;
+    if (text.startsWith("-")) text = "âm " + text;
     SpeakByBrowser(text);
 }
