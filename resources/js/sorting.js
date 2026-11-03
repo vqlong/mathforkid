@@ -140,15 +140,17 @@ function CreateTable(name)
         {
             let p = document.createElement("p");
             let text = `${i} + ${j} = ${j + i}`;
-            if (name == "x") text = `${i} x ${j} = ${j * i}`;
+            p.dataset.content = `${i} cộng ${j} bằng ${j + i}`;
+            if (name == "x")
+            {
+                text = `${i} x ${j} = ${j * i}`;
+                p.dataset.content = `${i} nhân ${j} bằng ${j * i}`;
+
+            }
             p.innerText = text;
             p.style.cursor = "pointer";
             p.className = "my-2 px-3 py-1";
-            p.addEventListener("mousedown", e =>
-            {
-                SpeakByBrowser(text);
-
-            });
+            
             div.appendChild(p);
         }
 
@@ -156,6 +158,14 @@ function CreateTable(name)
         table.appendChild(div);
     }
 
+    if(!table.onmousedown) table.onmousedown = e =>
+    {
+        const p = e.target.closest("p");
+        if (p && table.contains(p))
+        {
+            SpeakByBrowser(p.dataset.content);
+        }
+    };
 }
 
 function Up()
